@@ -1,0 +1,65 @@
+"use client";
+import axios from "axios";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import React, { useState } from "react";
+export default function LoginPage() {
+  const [user, setuser] = useState({
+    user: "",
+    email: "",
+    password: "",
+    username: "",
+  });
+  const onSignup = async () => {};
+  return (
+    <React.Fragment>
+      <main>
+        <div
+          className="flex flex-col items-center justify-center
+        py-2 p-5 align-middle "
+        >
+          <h2> Login</h2>
+          <br></br>
+          <label htmlFor="email"> </label>
+          email{" "}
+          <input
+            className="p-2 border border-gray-700 focus:border-blue-500
+            rounded-xl m-2"
+            id="email "
+            type="text"
+            value={user.email}
+            onChange={(e) => setuser({ ...user, email: e.target.value })}
+            placeholder="email "
+          ></input>
+          <label htmlFor="password"> </label>
+          password{" "}
+          <input
+            className="p-2 border border-gray-700 focus:border-blue-500
+            rounded-xl m-2"
+            id="password "
+            type="text"
+            value={user.password}
+            onChange={(e) => setuser({ ...user, password: e.target.value })}
+            placeholder="password"
+          />
+          <p>
+            <button
+              className="pl-3.5 cursor-pointer  font-mono align-middle pr-2.5 focus:border-blue-500 hover:scale-102  rounded-lg outline-3 border-2 border-gray-600 "
+              onClick={onSignup}
+            >
+              {" "}
+              Login Here !
+            </button>{" "}
+          </p>
+          <Link
+            className="mt-3 cursor-pointer font-mono underline underline-offset-1"
+            href="/signup"
+          >
+            {" "}
+            Signup Here
+          </Link>
+        </div>
+      </main>
+    </React.Fragment>
+  );
+}
