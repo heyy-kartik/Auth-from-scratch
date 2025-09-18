@@ -1,12 +1,19 @@
 import jwt from "jsonwebtoken";
-import { NextRequest, NextResponse } from "next/server";
-import { decode } from "punycode";
+import { NextRequest } from "next/server";
+
 export const getdata = (request: NextRequest) => {
- try {
-    const token = request.cookies.get("token")?.value || '';
-    const decoded = jwt.verify(token, process.env.TOKEN_SECRET!);
-    return decoded; 
- } catch (error:  any) {
-    throw new  Error("Invalid Token")
- }
+    try {
+        const token = request.cookies.get("token")?.value || '';
+        
+        if (!token) {
+           console.error("No token provided");
+        }
+        
+        const decoded: any = jwt.verify(token, process.env.TOKEN_SECRET!);
+        
+        // Return the user ID from the decoded token
+        return decoded.id;
+    } catch (error: any) {
+        console.log("Invalid Token");
+    }
 }
