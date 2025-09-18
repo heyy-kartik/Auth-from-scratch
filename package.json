@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "axios": "^1.12.2",
     "axois": "0.0.1-security",
     "bcryptjs": "^3.0.2",

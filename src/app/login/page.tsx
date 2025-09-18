@@ -1,8 +1,9 @@
 "use client";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 export default function LoginPage() {
   const [user, setuser] = useState({
     user: "",
@@ -10,7 +11,30 @@ export default function LoginPage() {
     password: "",
     username: "",
   });
-  const onSignup = async () => {};
+  const [buttonDisabled, setbuttonDisabled] = useState(false);
+  const [loading, setloading] = useState(false);
+  const router = useRouter();
+  const onLogin = async () => {
+    try {
+      setloading(true);
+      const res = await axios.post("/api/users/login", user);
+      console.log("Login Sucessful ", res.data);
+      toast.success("Login Sucess");
+      router.push("/profile");
+    } catch (error: any) {
+      console.log("Login Failed ", error.message);
+    } finally {
+      setloading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user.email.length > 0 && user.password.length > 0) {
+      setbuttonDisabled(false);
+    } else {
+      setbuttonDisabled(true);
+    }
+  }, [user]);
   return (
     <React.Fragment>
       <main>
@@ -18,7 +42,7 @@ export default function LoginPage() {
           className="flex flex-col items-center justify-center
         py-2 p-5 align-middle "
         >
-          <h2> Login</h2>
+          <h2 className=""> {loading ? "Processing " : " Login"} </h2>
           <br></br>
           <label htmlFor="email"> </label>
           email{" "}
@@ -37,7 +61,7 @@ export default function LoginPage() {
             className="p-2 border border-gray-700 focus:border-blue-500
             rounded-xl m-2"
             id="password "
-            type="text"
+            type="password"
             value={user.password}
             onChange={(e) => setuser({ ...user, password: e.target.value })}
             placeholder="password"
@@ -45,7 +69,7 @@ export default function LoginPage() {
           <p>
             <button
               className="pl-3.5 cursor-pointer  font-mono align-middle pr-2.5 focus:border-blue-500 hover:scale-102  rounded-lg outline-3 border-2 border-gray-600 "
-              onClick={onSignup}
+              onClick={onLogin}
             >
               {" "}
               Login Here !

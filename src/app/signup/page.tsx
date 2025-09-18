@@ -41,10 +41,10 @@ export default function SignupPage() {
           className="flex flex-col items-center justify-center
         py-2 p-5 mt-10"
         >
-          <h2>{loading ? "Processing " : "Signup   "}</h2>
+          <h2 className="font-mono">{loading ? "Processing " : "Signup   "}</h2>
           <br></br>
           <label htmlFor="username"> </label>
-          username{" "}
+          Username{" "}
           <input
             className="p-2 border border-gray-700 focus:border-blue-500
             rounded-xl m-2"
@@ -55,7 +55,7 @@ export default function SignupPage() {
             placeholder="Username "
           ></input>
           <label htmlFor="email"> </label>
-          email{" "}
+          Email{" "}
           <input
             className="p-2 border border-gray-700 focus:border-blue-500
             rounded-xl m-2"
@@ -63,10 +63,10 @@ export default function SignupPage() {
             type="text"
             value={user.email}
             onChange={(e) => setuser({ ...user, email: e.target.value })}
-            placeholder="email "
+            placeholder="Email "
           ></input>
           <label htmlFor="password"> </label>
-          password{" "}
+          Password{" "}
           <input
             className="p-2 border border-gray-700 focus:border-blue-500
             rounded-xl m-2"
@@ -74,7 +74,7 @@ export default function SignupPage() {
             type="password"
             value={user.password}
             onChange={(e) => setuser({ ...user, password: e.target.value })}
-            placeholder="password"
+            placeholder="Password"
           />
           <p>
             <button
