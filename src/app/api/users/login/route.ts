@@ -40,3 +40,4 @@ const res = NextResponse.json({message: "Login successful", token}, {status:200}
         return NextResponse.json({error:"Internal Server Error"},{status:500})
     }
 }
+
