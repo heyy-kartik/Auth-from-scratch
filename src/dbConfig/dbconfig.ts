@@ -6,7 +6,7 @@ export default async function connectToDatabase() {
             throw new Error('MONGODB_URI environment variable is not defined');
         }
         
-        await mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI!);
         const connection = mongoose.connection;
         console.log("Database connected successfully");
         return connection;

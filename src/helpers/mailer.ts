@@ -14,15 +14,15 @@ export const sendEmail = async ({email, emailType , userId} : any )=> {
     else if (emailType === "RESET") {await User.findByIdAndUpdate(userId,{forgotpasswordToken: hashedtoken,forgotpasswordtokenExpiry: Date.now() + 3600000, // 1 hour
     })
 }
-     var transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
-            auth: {
-              user: "3fd364695517df",
-              pass: "7383d58fd399cf"
-              //TODO: add these credentials to .env file
-            }
-          });
+    // Looking to send emails in production? Check out our Email API/SMTP product!
+var transport = nodemailer.createTransport({
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "77549a201bfe17",
+    pass: "264fa1568b3706"
+  }
+});
 
            const mailOptions = {
             from: 'kartikjagdale0511@gmail.com',
@@ -32,7 +32,15 @@ export const sendEmail = async ({email, emailType , userId} : any )=> {
             or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedtoken}
             </p>`
         }
-    } catch (error :any ) {
+
+ 
+
+        const mailresponce  = await transport.sendMail(mailOptions);
+        return mailresponce;                    
+    } 
+
+    catch (error :any ) {
          throw new Error(error.message);
     }
+    
 }
